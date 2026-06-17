@@ -1,0 +1,74 @@
+.upload-div{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    margin: 2rem;
+}
+.upload-div *{
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.displaydiv{
+    margin-bottom: 1rem;
+}
+table{
+    width: 60%;
+}
+td{
+    padding: 5px 20px;
+}
+        
+
+
+.imgholder{
+    width:50px;
+    height: 50px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+.imgholder img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.edit{
+    margin-top: 1rem;
+
+}
+.edit-form{
+    border: 2px solid black;
+    width: 500px;
+    margin-left: 20px;
+    margin-top: 1rem;
+    padding-left: 2rem;
+}
+.deletecard{
+    border: 2px solid black;
+    background-color: rgb(54, 77, 77);
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+}
+.deletecard *{
+    margin-left: 3rem;
+}
+.deletetbn2, .deletetbn1{
+    padding: 5px 1rem;
+    margin-left: 5rem;
+    margin-bottom: 1rem;
+    
+}
+@media(max-width:1000px){
+    
+    .deletecard{
+        left: 20%;
+    }
+}
+@media(max-width:670px){
+    .deletecard{
+        left: 0;
+    }
+}
