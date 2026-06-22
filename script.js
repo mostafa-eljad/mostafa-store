@@ -11,6 +11,9 @@ navbtn.addEventListener("click",()=>{
     navlinks.classList.toggle("navlinks")
     
 })
+document.querySelector(".hero-btn").addEventListener("click", ()=>{
+    window.location.href =" products.html"
+})
 let productCard = document.querySelectorAll(".product-card");
 productCard.forEach(product =>{
     product.addEventListener("click", ()=>{
@@ -100,9 +103,10 @@ async function loadproducts() {
               })
             }
             localStorage.setItem("cart", JSON.stringify(cart))
-            cartbtn.style.backgroundColor = "white"
+            cartbtn.style.backgroundColor = " white"
             cartbtn.style.color = "black"
     })
+
         productImg.append(imgtag)
         productElements.append( productImg,h2tag,pricetag,cartbtn ) 
         categories[catagory].append(productElements) 

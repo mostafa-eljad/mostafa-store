@@ -15,6 +15,7 @@ async function signInWithGoogle() {
 document.querySelector("#login").addEventListener("click",()=>{
     signInWithGoogle()
 })
+let order_holder = document.querySelector(".order-holder")
 async function getUser() {
     await supabase.auth.exchangeCodeForSession(window.location.href)
     // const { data }= await supabase.auth.getSession()
@@ -103,7 +104,7 @@ async function loadorders() {
         date.textContent = new Date(order.created_at).toLocaleDateString()
 
         div.append(title, price, date)
-        container.append(div)
+        order_holder.append(div)
     });
 }
 loadorders()

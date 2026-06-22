@@ -48,9 +48,11 @@ cart.forEach((item, index) => {
 
     let nameh2 = document.createElement("td")
     nameh2.textContent = item.name
-    
+    nameh2.classList.add("proname")
+
     let priceh2 = document.createElement("td")
     priceh2.textContent = item.price.toFixed(2)
+    
     let inputholder = document.createElement("td")
     let counth2 = document.createElement("input")
     counth2.type = "number"

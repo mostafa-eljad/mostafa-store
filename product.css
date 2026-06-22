@@ -64,7 +64,7 @@
 @media(max-width: 670px){
     .full-page{
        display: block;
-       margin-left: 2rem;
+       margin-left: 0.8rem;
     }
     .small-img{
         padding-top: 1rem;

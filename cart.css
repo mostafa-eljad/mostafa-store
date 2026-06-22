@@ -3,6 +3,7 @@ nav{
 }
 table{
     width: 60%;
+    table-layout: fixed;
 }
 .cart-page{
     margin-top: 2rem;
@@ -17,6 +18,7 @@ tr{
 }
 input{
     height: 22px;
+    width: 90px;
     padding-bottom: 6px;
 }
 .qantity{
@@ -35,14 +37,24 @@ input{
     color: aliceblue;
     font-size: medium;
     font-weight: 700;
+    width: 150px;
 }
 p{
     background-color: black;
     height: 2px;
 }
+
+
+
+
 @media(min-width: 1000px){
     .voice{
         margin-left: 10rem;
+    }
+}
+@media (max-width:999px){
+    .voice{
+        margin-left: 7rem;
     }
 }
 @media(max-width:768px){
@@ -52,8 +64,13 @@ p{
 }
 @media(max-width: 600px){
     .voice{
-        margin: 1rem;
+        margin: 0.5rem;
     }
+    table{
+        width: 300px;
+    }
+    
+    
     input{
         width: 50px;
     }

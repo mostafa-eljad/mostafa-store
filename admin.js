@@ -19,14 +19,17 @@ let input = document.querySelector("#imageInput");
 let uploadbtn = document.querySelector("#uploadBtn");
 
 
-document.getElementById("login").addEventListener("click", () => {
-    supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-            redirectTo: "https://anass-azdod.github.io/mostafa-store/"
-        }
-    })
-  })
+// let loginBtn = document.getElementById("login");
+// if (loginBtn) {
+//     loginBtn.addEventListener("click", () => {
+//         supabase.auth.signInWithOAuth({
+//             provider: "google",
+//             options: {
+//                 redirectTo: "https://anass-azdod.github.io/mostafa-store/"
+//             }
+//         })
+//     })
+// }
 uploadbtn.addEventListener("click", async()=>{
 
     let files = input.files;
@@ -36,7 +39,7 @@ uploadbtn.addEventListener("click", async()=>{
     let imagesUrl = []
     let catagory = catagoryinput.value
 
-    if (!files || !name || !price || !description ){
+    if (!files.length || !name || !price || !description || !catagory ){
       return alert("ادخل المعلومات")
     }
     for(let file of files){
@@ -48,6 +51,7 @@ uploadbtn.addEventListener("click", async()=>{
 
         if(upoaldError){
             console.error(upoaldError)
+            alert("فشل رفع الصورة: " + upoaldError.message)
             return
         }
         let {data} = supabase.storage
@@ -70,6 +74,7 @@ uploadbtn.addEventListener("click", async()=>{
     ])
     if(dbError){
         console.error(dbError)
+        alert("فشل حفظ المنتج: " + dbError.message)
         return
     }
     alert("تم اضافة المنتج")
@@ -159,7 +164,8 @@ async function display() {
         editbtn.textContent = "تعديل"
         editbtn.addEventListener("click",async ()=>{
             let edit_form = document.querySelector(".edit-form")
-            edit_form.style.display ="block"
+            edit_form.style.display ="flex"
+            edit_form.style.flexDirection = "column"
 
             document.querySelector("#edit-name").value = product.name
             document.querySelector("#edit-price").value = product.price
