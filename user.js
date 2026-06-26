@@ -7,7 +7,7 @@ async function signInWithGoogle() {
     const {data, error} = await supabase.auth.signInWithOAuth({
         provider:"google",
         options:{
-            redirectTo:" https://mostafa-eljad.github.io/mostafa-store/"
+            redirectTo:"https://mostafa-eljad.github.io/mostafa-store/"
         }
     })
     
