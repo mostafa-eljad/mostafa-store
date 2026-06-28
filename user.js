@@ -35,7 +35,7 @@ async function getUser() {
         document.querySelector(".hero-section").style.display ="none"
         let h1h1 = document.createElement("h1")
         h1h1.classList.add("greeting") 
-        h1h1.textContent = "hello " + user.user_metadata.full_name
+        h1h1.textContent = "مرحبًا " + user.user_metadata.full_name
         container.append(h1h1)
     }
 }
@@ -106,5 +106,10 @@ async function loadorders() {
         div.append(title, price, date)
         order_holder.append(div)
     });
+    if(!orders){
+        let h2 =  document.createElement("h2")
+        h2.textContent= "لا توجد أي فاتورة بعد"
+        container.append(h2)
+    }
 }
 loadorders()
