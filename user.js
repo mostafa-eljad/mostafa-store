@@ -2,28 +2,46 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const supabase = createClient('https://gkwkorqpktidgxladvzi.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdrd2tvcnFwa3RpZGd4bGFkdnppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMTYzNzAsImV4cCI6MjA4OTU5MjM3MH0.hBT4v2wUyn2KRme6dutz4cK0pApZyF9fonRb0DPyQxM')
 let container = document.querySelector(".container")
+let navlinks = document.querySelector(".navlinks")
+let navbtn = document.querySelector(".navbtn")
+
+navbtn.addEventListener("click",()=>{
+    navlinks.classList.toggle("navlinks")
+})
 
 async function signInWithGoogle() {
     const {data, error} = await supabase.auth.signInWithOAuth({
         provider:"google",
         options:{
-            redirectTo:"https://mostafa-eljad.github.io/mostafa-store/"
+            redirectTo: `${window.location.origin}${window.location.pathname}`
         }
     })
-    
+
+    if (error) {
+        console.log(error)
+    }
 }
 document.querySelector("#login").addEventListener("click",()=>{
     signInWithGoogle()
 })
 let order_holder = document.querySelector(".order-holder")
 async function getUser() {
-    await supabase.auth.exchangeCodeForSession(window.location.href)
+    const code = new URLSearchParams(window.location.search).get("code")
+    if (code) {
+        const { error: sessionError } = await supabase.auth.exchangeCodeForSession(code)
+        if (sessionError) {
+            console.log(sessionError)
+            return null
+        }
+        window.history.replaceState({}, document.title, window.location.pathname)
+    }
+
     // const { data }= await supabase.auth.getSession()
     const {data , error}= await supabase.auth.getUser()
 
     if (error){
         console.log(error)
-        return
+        return null
     }
     
     
@@ -35,11 +53,11 @@ async function getUser() {
         document.querySelector(".hero-section").style.display ="none"
         let h1h1 = document.createElement("h1")
         h1h1.classList.add("greeting") 
-        h1h1.textContent = "مرحبًا " + user.user_metadata.full_name
+        h1h1.textContent = user.user_metadata.full_name + "مرحبًا "
         container.append(h1h1)
     }
+    return user
 }
-getUser()
 
 async function loadorders() {
     const{data : userData} = await supabase.auth.getUser()
@@ -88,7 +106,8 @@ async function loadorders() {
         return
     }
     if(roleData.role === "admin"){
-        window.location.href = "/admin.html"
+        window.location.href = "admin.html"
+        return
     }
     orders.forEach(order => {
         let div= document.createElement("div")
@@ -106,10 +125,18 @@ async function loadorders() {
         div.append(title, price, date)
         order_holder.append(div)
     });
-    if(!orders){
-        let h2 =  document.createElement("h2")
-        h2.textContent= "لا توجد أي فاتورة بعد"
-        container.append(h2)
+    // if(orders.length === 0){
+    //     let h2 =  document.createElement("h2")
+    //     h2.textContent= "لا توجد أي فاتورة بعد"
+    //     order_holder.append(h2)
+    // }
+}
+
+async function initUserPage() {
+    const user = await getUser()
+    if (user) {
+        await loadorders()
     }
 }
-loadorders()
+
+initUserPage()
