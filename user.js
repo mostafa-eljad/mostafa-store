@@ -106,7 +106,7 @@ async function loadorders() {
         return
     }
     if(roleData.role === "admin"){
-        window.location.href = "admin.html"
+        window.location.href = "/mostafa-store/admin.html"
         return
     }
     orders.forEach(order => {
